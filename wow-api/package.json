@@ -1,0 +1,105 @@
+{
+	"name": "wow-api",
+	"displayName": "WoW API",
+	"description": "World of Warcraft API",
+	"version": "0.17.6",
+	"publisher": "Ketho",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/Ketho/vscode-wow-api.git"
+	},
+	"license": "MIT",
+	"engines": {
+		"vscode": "^1.91.0"
+	},
+	"categories": [
+		"Linters",
+		"Programming Languages"
+	],
+	"keywords": [
+		"Lua",
+		"WoW",
+		"World of Warcraft"
+	],
+	"icon": "img/wow-logo.png",
+	"activationEvents": [
+		"onLanguage:lua"
+	],
+	"main": "./out/extension.js",
+	"scripts": {
+		"vscode:prepublish": "npm run compile",
+		"compile": "tsc -p ./",
+		"lint": "eslint src --ext ts",
+		"watch": "tsc -watch -p ./",
+		"pretest": "npm run compile && npm run lint",
+		"test": "node ./out/test/runTest.js"
+	},
+	"devDependencies": {
+		"@types/vscode": "^1.91.0",
+		"@types/mocha": "^10.0.7",
+		"@types/node": "20.x",
+		"@typescript-eslint/eslint-plugin": "^7.14.1",
+		"@typescript-eslint/parser": "^7.11.0",
+		"eslint": "^8.57.0",
+		"typescript": "^5.4.5",
+		"@vscode/test-cli": "^0.0.9",
+		"@vscode/test-electron": "^2.4.0"
+	},
+	"extensionDependencies": [
+		"sumneko.lua"
+	],
+	"contributes": {
+		"commands": [
+			{
+				"command": "wowAPI.activateExtension",
+				"title": "Activate WoW API extension"
+			}
+		],
+		"configuration": {
+			"title": "WoW API",
+			"properties": {
+				"wowAPI.locale": {
+					"type": "string",
+					"default": "enUS",
+					"markdownDescription": "Sets the GlobalStrings locale for code completion and hover tooltips.",
+					"enum": [
+						"enUS",
+						"deDE",
+						"esES",
+						"esMX",
+						"frFR",
+						"itIT",
+						"koKR",
+						"ptBR",
+						"ruRU",
+						"zhCN",
+						"zhTW"
+					]
+				},
+				"wowAPI.luals.configurationScope": {
+					"type": "string",
+					"default": "Workspace",
+					"markdownDescription": "The configuration scope for automatically configured [LuaLS settings](https://github.com/Ketho/vscode-wow-api/wiki/Settings#configuration-scope).",
+					"enum": [
+						"User",
+						"Workspace"
+					],
+					"enumDescriptions": [
+						"Settings that apply globally to any instance of VS Code you open.",
+						"Settings stored inside your workspace and only apply when the workspace is opened."
+					]
+				},
+				"wowAPI.luals.defineKnownGlobals": {
+					"type": "boolean",
+					"default": true,
+					"markdownDescription": "Automatically adds known WoW globals to workspace `Lua.diagnostics.globals`."
+				},
+				"wowAPI.luals.setLuaRuntime": {
+					"type": "boolean",
+					"default": true,
+					"markdownDescription": "Replaces the standard Lua libraries with the [WoW Lua](https://github.com/Ketho/vscode-wow-api/wiki/Settings#set-lua-runtime) version."
+				}
+			}
+		}
+	}
+}
